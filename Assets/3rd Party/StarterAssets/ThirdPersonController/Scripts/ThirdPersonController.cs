@@ -134,6 +134,7 @@ namespace StarterAssets
 
 		private void LateUpdate()
 		{
+			if(Input.GetMouseButton(1))
 			CameraRotation();
 		}
 

@@ -12,7 +12,7 @@ namespace EscapeRoom
         public CustomGameObject CustomGameObject;
         private void Awake()
         {
-            Vector3 RandomPosition = new Vector3(Random.Range(0, 5), 0, Random.Range(0, 5));
+            Vector3 RandomPosition = new Vector3(Random.Range(-4,-1), 0, Random.Range(-1, 2));
             pv = GetComponent<PhotonView>();
             CustomGameObject.Object = PlayerPrefab;
             CustomGameObject.Position =  Vector3.zero + RandomPosition;

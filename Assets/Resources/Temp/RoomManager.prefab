@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8518083843288203567}
   - component: {fileID: 8518083843288203566}
+  - component: {fileID: 1402068471}
   m_Layer: 0
   m_Name: RoomManager
   m_TagString: Untagged
@@ -53,3 +54,19 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1402068471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8518083843288203537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77739783a6f25d941bed7462cba36015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerManager: {fileID: 5439452325757671389, guid: 0ca78497f015dc74cbd983ef90e739b4,
+    type: 3}
+  VoiceCallCanvas: {fileID: 95957167514086357, guid: e41809cffbe3fdf4b912503ca59c3f30,
+    type: 3}
