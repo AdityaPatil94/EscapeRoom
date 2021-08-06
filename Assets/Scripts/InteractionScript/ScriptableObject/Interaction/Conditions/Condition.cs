@@ -10,7 +10,8 @@ public class Condition
 
 public enum ConditionDescription
 {
-    DrinkWater,
-    PlayCricket,
+    HasLetterOpend,
+    HasLaptopStarted,
+    HasFusePlacedInCircuit,
 
 }

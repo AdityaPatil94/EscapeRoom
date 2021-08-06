@@ -125,8 +125,8 @@ namespace StarterAssets
 		{
 			if (!pv.IsMine)
 				return;
-				_hasAnimator = TryGetComponent(out _animator);
 			
+			_hasAnimator = TryGetComponent(out _animator);
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
