@@ -58,7 +58,7 @@ public class UIInventory : MonoBehaviour
 			itemSlotRectTransform = Instantiate(itemSlotTemplete,itemSlotContainer).GetComponent<RectTransform>();
 			itemSlotRectTransform.gameObject.SetActive(true);
 			Image image = itemSlotRectTransform.Find("OuterImageBorder/ImageBackground/SpriteImage").GetComponent<Image>();
-			image.sprite = item.GetSprite();
+			image.sprite = item.m_ItemSprite;
 			TextMeshProUGUI uiText = itemSlotRectTransform.Find("OuterImageBorder/ImageBackground/AmountText").GetComponent<TextMeshProUGUI>();
 
 			uiText.text = item.m_ItemAmount >1 ?  item.m_ItemAmount.ToString(): "" ;
