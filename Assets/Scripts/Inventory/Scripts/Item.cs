@@ -8,7 +8,7 @@ public class Item
 {
     public ItemType m_ItemType;
     public int m_ItemAmount;
-    public Sprite m_ItemSprite;
+    public bool isStackable;
     //public Sprite GetSprite()
     //{
     //    //switch(m_ItemType)

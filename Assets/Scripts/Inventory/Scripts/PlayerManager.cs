@@ -6,7 +6,7 @@ public class PlayerManager : MonoBehaviour {
     [SerializeField]
     private UIInventory uIInventory;
     [SerializeField]
-    private Inventory inventory;
+    public Inventory inventory;
 
 	void Start()
     {

@@ -12,6 +12,7 @@ public enum ConditionDescription
 {
     HasLetterOpend,
     HasLaptopStarted,
+    HasFusePickedUp,
     HasFusePlacedInCircuit,
 
 }

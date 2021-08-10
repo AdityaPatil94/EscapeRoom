@@ -10,6 +10,11 @@ namespace EscapeRoom
         PhotonView pv;
         public GameObject PlayerPrefab;
         public CustomGameObject CustomGameObject;
+        //[SerializeField]
+        //private UIInventory uIInventory;
+        //[SerializeField]
+        //private Inventory inventory;
+
         private void Awake()
         {
             Vector3 RandomPosition = new Vector3(Random.Range(-4,-1), 0, Random.Range(-1, 2));
@@ -25,6 +30,9 @@ namespace EscapeRoom
             {
                 CreateController();
             }
+            //inventory = new Inventory();
+            //uIInventory = FindObjectOfType<UIInventory>();
+            //uIInventory.SetInventory(inventory);
         }
 
         private void CreateController()

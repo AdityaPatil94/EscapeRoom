@@ -14,10 +14,11 @@ public class UIInventory : MonoBehaviour
 	private Transform itemSlotTemplete;
 
 	public RectTransform itemSlotRectTransform;
+	public GlobalItemIventory GlobalInventory;
 	void Awake () 
 	{
-		itemSlotContainer = transform.Find("ItemSlotContainer");
-		itemSlotTemplete = itemSlotContainer.Find("ItemTemplete");
+		itemSlotContainer = transform.Find("Viewport/itemSlotContainer");
+		itemSlotTemplete = itemSlotContainer.Find("itemSlotTemplete");
 		
 		Debug.Log(itemSlotTemplete + "," + itemSlotContainer);
 	}
@@ -39,29 +40,42 @@ public class UIInventory : MonoBehaviour
     {
 		if(inventory != null)
 		RefreshInventory();
+		Debug.Log("Item Added to List");
     }
 
 	private void RefreshInventory()
     {
-		
-		foreach(Transform child in itemSlotContainer)
+
+        foreach (Transform child in itemSlotContainer)
         {
-			Debug.Log(itemSlotTemplete + "," + child);
-			if (child == itemSlotTemplete)
-				continue;
-			Destroy(child.gameObject);
+            Debug.Log(itemSlotTemplete + "," + child);
+            if (child == itemSlotTemplete)
+                continue;
+            Destroy(child.gameObject);
         }
-		 
-		foreach(Item item in inventory.GetItemList())
+
+        foreach (Item item in inventory.GetItemList())
         {
-			 
+
+			Debug.Log("item count - " + inventory.GetItemList().Count);
 			itemSlotRectTransform = Instantiate(itemSlotTemplete,itemSlotContainer).GetComponent<RectTransform>();
 			itemSlotRectTransform.gameObject.SetActive(true);
-			Image image = itemSlotRectTransform.Find("OuterImageBorder/ImageBackground/SpriteImage").GetComponent<Image>();
-			image.sprite = item.m_ItemSprite;
-			TextMeshProUGUI uiText = itemSlotRectTransform.Find("OuterImageBorder/ImageBackground/AmountText").GetComponent<TextMeshProUGUI>();
+			Image image = itemSlotRectTransform.Find("Image - ItemSprite").GetComponent<Image>();
+			TextMeshProUGUI uiText = itemSlotRectTransform.Find("Text (TMP) - ItemCount").GetComponent<TextMeshProUGUI>();
+			Debug.Log("uiText -" + uiText);
 
-			uiText.text = item.m_ItemAmount >1 ?  item.m_ItemAmount.ToString(): "" ;
+			foreach (GlobalItem globalItem in GlobalInventory.itemList)
+			{
+				if(globalItem.m_ItemType == item.m_ItemType)
+                {
+					image.sprite = globalItem.m_ItemSprite;
+					Debug.Log(item.m_ItemAmount);
+					uiText.text = item.m_ItemAmount > 1 ? item.m_ItemAmount.ToString() : "";
+					//return;
+				}
+			}
+			//image.sprite = item.m_ItemSprite;
+			
         }
     }
 }
