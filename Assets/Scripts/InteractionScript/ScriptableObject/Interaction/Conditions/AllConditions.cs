@@ -4,7 +4,7 @@ using UnityEngine;
 // it is globally accessible through a static instance
 // reference.  
 [CreateAssetMenu(fileName = "AllConditions", menuName = "InteractionSystem/AllConditions", order = 53)]
-public class AllConditions : ScriptableObject
+public class AllConditions : ResettableScriptableObject
 {
     public Condition[] conditions;                      // All the Conditions that exist in the game.
 
@@ -35,7 +35,7 @@ public class AllConditions : ScriptableObject
 
 
     // This function will be called at Start once per run of the game.
-    public void Reset ()
+    public override void Reset()
     {
         // If there are no conditions, do nothing.
         if (conditions == null)

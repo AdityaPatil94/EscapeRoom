@@ -13,6 +13,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public GameObject VoiceCallCanvas;
     private CustomGameObject customPlayerGameObject = new CustomGameObject();
     private CustomGameObject customVoiceCallGameObject = new CustomGameObject();
+    private PhotonView pv;
     private void Awake()
     {
         if(Instance)
@@ -23,15 +24,17 @@ public class RoomManager : MonoBehaviourPunCallbacks
         DontDestroyOnLoad(this.gameObject);
         Instance = this;
 
+        pv = GetComponent<PhotonView>();
 
         customPlayerGameObject.Object = playerManager;
         customPlayerGameObject.Position = transform.position;
         customPlayerGameObject.Rotation = Quaternion.identity;
+        customPlayerGameObject.PV = pv;
 
         customVoiceCallGameObject.Object = VoiceCallCanvas;
         customVoiceCallGameObject.Position = transform.position;
         customVoiceCallGameObject.Rotation = Quaternion.identity;
-
+        customVoiceCallGameObject.PV = pv;
 
     }
 

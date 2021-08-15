@@ -68,7 +68,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerPrefab: {fileID: 6173216218678528126, guid: 35963b0258b025d43bb510dcf60d46c2,
     type: 3}
-  CustomGameObject:
+  PlayerController:
     Object: {fileID: 0}
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 0}
+    GroupOfPrefab: 0
+    PV: {fileID: 0}
+  LocalPlayer: {fileID: 0}

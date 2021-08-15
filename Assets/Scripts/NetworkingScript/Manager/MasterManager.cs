@@ -23,7 +23,8 @@ public class MasterManager : SingeltonScriptableObject<MasterManager>
             {
                 if(prefab.Path != string.Empty)
                 {
-                    GameObject result = PhotonNetwork.Instantiate(prefab.Path, customGameObject.Position, customGameObject.Rotation);
+                    //GameObject result = PhotonNetwork.Instantiate(prefab.Path, customGameObject.Position, customGameObject.Rotation);
+                    GameObject result = PhotonNetwork.Instantiate(prefab.Path, customGameObject.Position, customGameObject.Rotation, customGameObject.GroupOfPrefab, new object[] { customGameObject.PV.ViewID });
                     return result;
                 }
                 else
@@ -67,4 +68,6 @@ public class CustomGameObject
     public GameObject Object;
     public Vector3 Position;
     public Quaternion Rotation;
+    public byte GroupOfPrefab=0;
+    public PhotonView PV; 
 }

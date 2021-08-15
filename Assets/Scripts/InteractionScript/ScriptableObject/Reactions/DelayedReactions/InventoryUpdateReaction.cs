@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using EscapeRoom;
 public class InventoryUpdateReaction : Reaction
 {
     public Item Item;
-    public PlayerManager manager;
+    public InventoryManager manager;
     private Inventory inventory;
 
 
     protected override void SpecificInit()
     {
-        inventory = manager.inventory;
+        //inventory = manager.inventory;
+        manager = FindObjectOfType<InventoryManager>();
     }
     protected override void ImmediateReaction()
     {

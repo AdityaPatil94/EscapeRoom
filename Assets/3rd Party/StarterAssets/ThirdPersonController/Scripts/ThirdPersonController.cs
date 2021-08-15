@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 #endif
 using Photon.Pun;
 using Cinemachine;
+using EscapeRoom;
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
 
@@ -60,6 +61,9 @@ namespace StarterAssets
 		[Tooltip("For locking the camera position on all axis")]
 		public bool LockCameraPosition = false;
 
+		public AllConditions allConditions;
+
+
 		// cinemachine
 		private float _cinemachineTargetYaw;
 		private float _cinemachineTargetPitch;
@@ -89,12 +93,13 @@ namespace StarterAssets
 		private GameObject _mainCamera;
 
 		private const float _threshold = 0.01f;
-
+		//public PlayerManager playerManager;
 		private bool _hasAnimator;
 		PhotonView pv;
 		private void Awake()
 		{
 			pv = GetComponentInParent<PhotonView>();
+
 			// get a reference to our main camera
 			if (_mainCamera == null)
 			{
@@ -113,12 +118,12 @@ namespace StarterAssets
 			_hasAnimator = TryGetComponent(out _animator);
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
-
 			AssignAnimationIDs();
 
 			// reset our timeouts on start
 			_jumpTimeoutDelta = JumpTimeout;
 			_fallTimeoutDelta = FallTimeout;
+			//playerManager = PhotonView.Find((int)pv.InstantiationData[0]).GetComponent<PlayerManager>();
 		}
 
 		private void Update()
@@ -127,6 +132,7 @@ namespace StarterAssets
 				return;
 			
 			_hasAnimator = TryGetComponent(out _animator);
+			PlayerReference.Instance.LocalPlayer = this.gameObject;
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
