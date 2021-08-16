@@ -132,7 +132,7 @@ namespace StarterAssets
 				return;
 			
 			_hasAnimator = TryGetComponent(out _animator);
-			PlayerReference.Instance.LocalPlayer = this.gameObject;
+			//PlayerReference.Instance.LocalPlayer = this.gameObject;
 			JumpAndGravity();
 			GroundedCheck();
 			Move();

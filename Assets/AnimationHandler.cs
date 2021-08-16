@@ -6,7 +6,7 @@ using UnityEngine;
 public class AnimationHandler : MonoBehaviour
 {
    private PhotonView pv;
-
+ 
   public bool PlayAnimation()
     {
         if(pv.IsMine)
