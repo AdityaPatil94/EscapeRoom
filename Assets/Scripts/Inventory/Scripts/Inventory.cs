@@ -22,6 +22,7 @@ public class Inventory
                
                 if(inventoryItem.m_ItemType == item.m_ItemType)
                 {
+                    Debug.LogWarning("this is culprit");
                     inventoryItem.m_ItemAmount += item.m_ItemAmount;
                     itemAlreadyInInventory = true;
                 }
@@ -34,11 +35,12 @@ public class Inventory
         }
         else
         {
+            Debug.Log("Add item else");
             itemList.Add(item);
         }
-       
-        if(OnItemAddedToList != null)
-        OnItemAddedToList();
+
+        Debug.Log(" Item added and ivoking refresh list");
+        OnItemAddedToList?.Invoke();
     }
 
     public List<Item> GetItemList()

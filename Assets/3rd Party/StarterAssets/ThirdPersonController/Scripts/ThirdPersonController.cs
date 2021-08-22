@@ -62,7 +62,7 @@ namespace StarterAssets
 		public bool LockCameraPosition = false;
 
 		public AllConditions allConditions;
-
+		public GameObject FuseObject;
 
 		// cinemachine
 		private float _cinemachineTargetYaw;

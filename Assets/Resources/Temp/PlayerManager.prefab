@@ -75,3 +75,4 @@ MonoBehaviour:
     GroupOfPrefab: 0
     PV: {fileID: 0}
   LocalPlayer: {fileID: 0}
+  IsLocalPlayerManager: 0

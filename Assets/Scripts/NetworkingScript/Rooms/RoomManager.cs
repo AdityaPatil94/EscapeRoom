@@ -11,8 +11,12 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public static RoomManager Instance;
     public GameObject playerManager;
     public GameObject VoiceCallCanvas;
+    public GameObject HealthBarCanvas;
+    public GameObject HealthBarParent;
+    public List<GameObject> HealthBarList;
     private CustomGameObject customPlayerGameObject = new CustomGameObject();
     private CustomGameObject customVoiceCallGameObject = new CustomGameObject();
+    private CustomGameObject customHealthGameObject = new CustomGameObject();
     private PhotonView pv;
     private void Awake()
     {
@@ -36,6 +40,12 @@ public class RoomManager : MonoBehaviourPunCallbacks
         customVoiceCallGameObject.Rotation = Quaternion.identity;
         customVoiceCallGameObject.PV = pv;
 
+        customHealthGameObject.Object = HealthBarCanvas;
+        customHealthGameObject.Position = transform.position;
+        customHealthGameObject.Rotation = Quaternion.identity;
+        customHealthGameObject.PV = pv;
+
+
     }
 
     public override void OnEnable()
@@ -49,9 +59,20 @@ public class RoomManager : MonoBehaviourPunCallbacks
         {
             MasterManager.NetworkInstantiate(customPlayerGameObject);
             MasterManager.NetworkInstantiate(customVoiceCallGameObject);
+            GameObject temp =  MasterManager.NetworkInstantiate(customHealthGameObject);
+            HealthBarList.Add(temp);
+           
         }
+        //SetParent();
     }
 
+    private void SetParent()
+    {
+        foreach (GameObject temp in HealthBarList)
+        {
+            temp.transform.SetParent(HealthBarParent.transform);
+        }
+    }
     public override void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;

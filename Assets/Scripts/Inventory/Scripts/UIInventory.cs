@@ -28,6 +28,11 @@ public class UIInventory : MonoBehaviour
         Inventory.OnItemAddedToList += ItemAddedToList;
     }
 
+    public void OnDisable()
+    {
+        Inventory.OnItemAddedToList -= ItemAddedToList;
+
+	}
 	public void SetInventory(Inventory inventory)
 	{
 		 
@@ -38,6 +43,7 @@ public class UIInventory : MonoBehaviour
 
 	private void ItemAddedToList()
     {
+		Debug.Log("Item added to list");
 		if(inventory != null)
 		RefreshInventory();
 		Debug.Log("Item Added to List");

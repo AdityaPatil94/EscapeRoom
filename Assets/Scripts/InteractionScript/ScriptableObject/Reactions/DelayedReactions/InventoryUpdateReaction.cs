@@ -17,6 +17,7 @@ public class InventoryUpdateReaction : Reaction
     protected override void ImmediateReaction()
     {
         //inventory.AddItems(Item);
+        Debug.Log("inventory update immediate reaction");
         manager.inventory.AddItems(Item);
     }
 }

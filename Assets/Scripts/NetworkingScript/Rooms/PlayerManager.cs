@@ -10,10 +10,9 @@ namespace EscapeRoom
     {
         PhotonView pv;
         public GameObject PlayerPrefab;
-        //public GameObject interactionControllerPrefab;
         public CustomGameObject PlayerController;
-        //public CustomGameObject InteractionController;
         public GameObject LocalPlayer;
+        public bool IsLocalPlayerManager;
         private void Awake()
         {
             Vector3 RandomPosition = new Vector3(Random.Range(-4,-1), 0, Random.Range(-1, 2));
@@ -22,37 +21,27 @@ namespace EscapeRoom
             PlayerController.Position =  Vector3.zero + RandomPosition;
             PlayerController.Rotation = Quaternion.identity;
             PlayerController.PV = pv;
-
-            //InteractionController.Object = interactionControllerPrefab;
-            //InteractionController.Position = Vector3.zero + RandomPosition;
-            //InteractionController.Rotation = Quaternion.identity;
-            //InteractionController.PV = pv;
         }
         // Start is called before the first frame update
         void Start()
         {
             if(pv.IsMine)
             {
-                CreateController();
+                //Debug.Log("Local Player Set");
+                IsLocalPlayerManager = true;
             }
+            CreateController();
         }
 
         private void CreateController()
         {
-            if(pv.IsMine)
-            {
-                ////LocalPlayer = PhotonNetwork.Instantiate(prefab.Path, customGameObject.Position, customGameObject.Rotation, customGameObject.GroupOfPrefab, new object[] { customGameObject.PV.ViewID });
-                //LocalPlayer = PhotonNetwork.Instantiate(Path.Combine());
-                LocalPlayer = MasterManager.NetworkInstantiate(PlayerController);
-                //MasterManager.NetworkInstantiate(InteractionController);
-            }
-            
+            LocalPlayer = MasterManager.NetworkInstantiate(PlayerController);
         }
+//public void PlayAnimation(int triggerHash)
+        //{
+        //    if(pv.IsMine)
+        //    LocalPlayer.GetComponentInChildren<Animator>().SetTrigger(triggerHash);
+        //}
 
-        public void PlayAnimation(int triggerHash)
-        {
-            if(pv.IsMine)
-            LocalPlayer.GetComponentInChildren<Animator>().SetTrigger(triggerHash);
-        }
     }
 }
