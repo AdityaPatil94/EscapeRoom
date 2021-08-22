@@ -9,6 +9,8 @@ public class UIHealthHandler : MonoBehaviourPunCallbacks
 {
     [PunRPC]
     public Image healthBar;
+    public Image HurtEffect;
+
     public PhotonView pv;
     public bool IsLocalHealthUI;
     private void Awake()
@@ -26,17 +28,24 @@ public class UIHealthHandler : MonoBehaviourPunCallbacks
     [PunRPC]
     public void RPC_RefreshHealthBar(float healthPercentage)
     {
-        if (!pv.IsMine)
-            return;
-        healthBar.fillAmount = healthPercentage;
+        if (IsLocalHealthUI)
+            healthBar.fillAmount = healthPercentage;
     } 
 
     public void RefreshHealthBar(float healthPercentage)
     {
         healthBar.fillAmount = healthPercentage;
-        pv.RPC("RPC_RefreshHealthBar", RpcTarget.All,healthPercentage);
+        //pv.RPC("RPC_RefreshHealthBar", RpcTarget.All,healthPercentage);
     }
 
+    public void StartHurtFade(float targetFade)
+    {
+        StartCoroutine("Fade",targetFade);
+    }
 
+    IEnumerator Fade(float fadeAmount)
+    {
+        yield return null;
+    }
     
 }

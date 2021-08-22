@@ -2912,7 +2912,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   randomHealthList: 500000005a00000064000000
-  HealthUIParent: {fileID: 7745048016043538825}
+  IsLocalPlayerHealth: 0
 --- !u!1 &7870713070920000865
 GameObject:
   m_ObjectHideFlags: 0
@@ -4702,12 +4702,6 @@ PrefabInstance:
 --- !u!224 &6712747809274551096 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9083509269897392286, guid: d7d70309ec8b4034c9b9afad61079d8f,
-    type: 3}
-  m_PrefabInstance: {fileID: 2533102291299658662}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7745048016043538825 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5214204364565680687, guid: d7d70309ec8b4034c9b9afad61079d8f,
     type: 3}
   m_PrefabInstance: {fileID: 2533102291299658662}
   m_PrefabAsset: {fileID: 0}

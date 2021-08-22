@@ -23,7 +23,7 @@ namespace EscapeRoom
         {
             return CurrentHealth / TotalHealth;
         }
-        public void TakeDamage(int damage)
+        public void TakeDamage(float damage)
         {
             CurrentHealth -= damage;
             if (CurrentHealth < 0)

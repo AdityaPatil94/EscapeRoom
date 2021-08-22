@@ -27,10 +27,11 @@ namespace EscapeRoom
         {
             if(pv.IsMine)
             {
-                //Debug.Log("Local Player Set");
+                CreateController();
+                Debug.Log("Local Player Set");
                 IsLocalPlayerManager = true;
             }
-            CreateController();
+            
         }
 
         private void CreateController()
