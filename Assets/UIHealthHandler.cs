@@ -5,47 +5,63 @@ using UnityEngine.UI;
 using Photon;
 using Photon.Pun;
 
-public class UIHealthHandler : MonoBehaviourPunCallbacks
+namespace EscapeRoom
 {
-    [PunRPC]
-    public Image healthBar;
-    public Image HurtEffect;
+    public class UIHealthHandler : MonoBehaviourPunCallbacks
+    {
+        [PunRPC]
+        public Image healthBar;
+        public Image HurtEffect;
 
-    public PhotonView pv;
-    public bool IsLocalHealthUI;
-    private void Awake()
-    {
-        pv = GetComponent<PhotonView>();
-    }
-    private void Start()
-    {
-        if(pv.IsMine)
+        public PhotonView pv;
+        public bool IsLocalHealthUI;
+        public GameObject GameOverPanel;
+        public bool ActiveStat =true;
+        private void Awake()
         {
-            IsLocalHealthUI = true;
+            pv = GetComponent<PhotonView>();
         }
-    }
+        private void Start()
+        {
+            if (pv.IsMine)
+            {
+                IsLocalHealthUI = true;
+                HealthSystem.OnPlayerDeath += GameOver;
+            }
+        }
 
-    [PunRPC]
-    public void RPC_RefreshHealthBar(float healthPercentage)
-    {
-        if (IsLocalHealthUI)
+        private void GameOver()
+        {
+            Invoke("ShowUI",2.4f);
+        }
+        private void ShowUI()
+        {
+            GameOverPanel.SetActive(ActiveStat);
+        }
+
+        [PunRPC]
+        public void RPC_RefreshHealthBar(float healthPercentage)
+        {
+            if (IsLocalHealthUI)
+                healthBar.fillAmount = healthPercentage;
+        }
+
+        public void RefreshHealthBar(float healthPercentage)
+        {
             healthBar.fillAmount = healthPercentage;
-    } 
+            //pv.RPC("RPC_RefreshHealthBar", RpcTarget.All,healthPercentage);
+        }
 
-    public void RefreshHealthBar(float healthPercentage)
-    {
-        healthBar.fillAmount = healthPercentage;
-        //pv.RPC("RPC_RefreshHealthBar", RpcTarget.All,healthPercentage);
+        public void StartHurtFade(float targetFade)
+        {
+            StartCoroutine("Fade", targetFade);
+        }
+
+        IEnumerator Fade(float fadeAmount)
+        {
+            yield return null;
+        }
+
     }
 
-    public void StartHurtFade(float targetFade)
-    {
-        StartCoroutine("Fade",targetFade);
-    }
-
-    IEnumerator Fade(float fadeAmount)
-    {
-        yield return null;
-    }
-    
 }

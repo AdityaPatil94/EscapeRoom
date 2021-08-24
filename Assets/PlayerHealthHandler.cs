@@ -11,13 +11,14 @@ namespace EscapeRoom
         public int TotalHealth;
         public int[] randomHealthList;
         public bool IsLocalPlayerHealth;
+        public string DeathTrigger;
         //public GameObject HealthUIParent;
 
         private UIHealthHandler uIHealthHandler;
         private UIHealthHandler[] UIHealthHandlerList;
         float healthPercentage;
         private PhotonView pv;
-
+        private Animator anim;
         private void Awake()
         {
             pv = GetComponent<PhotonView>();
@@ -28,12 +29,23 @@ namespace EscapeRoom
             Debug.Log(random);
             TotalHealth = randomHealthList[random];
             HealthSystem = new HealthSystem(TotalHealth);
+            HealthSystem.OnPlayerDeath += PlayDeathAnimation;
             uIHealthHandler = GetHealthUI();
             if(pv.IsMine)
             {
                 IsLocalPlayerHealth = true;
             }
             //Invoke("TestDamage",5);
+        }
+
+        private void PlayDeathAnimation()
+        {
+            if (pv.IsMine)
+            {
+                GetComponentInChildren<CharacterController>().enabled = false;
+                anim = GetComponentInChildren<Animator>();
+                anim.SetTrigger(DeathTrigger);
+            }
         }
 
         //[PunRPC]
@@ -83,6 +95,11 @@ namespace EscapeRoom
                     return handler;
             }
             return null;
+        }
+
+        private void OnDisable()
+        {
+            HealthSystem.OnPlayerDeath -= PlayDeathAnimation;
         }
     }
 

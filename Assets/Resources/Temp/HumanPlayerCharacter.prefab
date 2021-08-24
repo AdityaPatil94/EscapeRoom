@@ -422,7 +422,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1155134068594014776}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.20000005, y: 1.375, z: -2}
+  m_LocalPosition: {x: 0.20000005, y: 1.375, z: -1.874073}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7381878604218875867}
@@ -2913,6 +2913,7 @@ MonoBehaviour:
   TotalHealth: 0
   randomHealthList: 500000005a00000064000000
   IsLocalPlayerHealth: 0
+  DeathTrigger: PlayerDied
 --- !u!1 &7870713070920000865
 GameObject:
   m_ObjectHideFlags: 0
@@ -2989,7 +2990,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1.8
-  m_Radius: 0.25
+  m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.25
   m_SkinWidth: 0.02
@@ -3842,7 +3843,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8113816557983453421}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.20000005, y: 1.375, z: -2}
+  m_LocalPosition: {x: 0.20000005, y: 1.375, z: -1.874073}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8113816557373743318}
@@ -4591,6 +4592,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canvas - Health System
+      objectReference: {fileID: 0}
+    - target: {fileID: 5925594433705097315, guid: d7d70309ec8b4034c9b9afad61079d8f,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9083509269897392286, guid: d7d70309ec8b4034c9b9afad61079d8f,
         type: 3}
