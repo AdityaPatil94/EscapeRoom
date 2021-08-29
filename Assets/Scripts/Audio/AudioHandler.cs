@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class AudioHandler : MonoBehaviour
 {
-    public AudioSource AudioSource;
-    public AudioClip[] Music;
     public static AudioHandler Instance;
+    public AudioSource BGMusicAudioSource;
+    public AudioSource SoundEffectAudioSource;
+    public AudioClip[] Music;
+
+    
+    public bool ToggleMusic;
+    public bool ToggleSound;
     private void Start()
     {
         PlayNextSong();
@@ -22,8 +27,23 @@ public class AudioHandler : MonoBehaviour
     }
     void PlayNextSong()
     {
-        AudioSource.clip = Music[Random.Range(0, Music.Length)];
-        AudioSource.Play();
-        Invoke("PlayNextSong", AudioSource.clip.length);
+        BGMusicAudioSource.clip = Music[Random.Range(0, Music.Length)];
+        BGMusicAudioSource.Play();
+        Invoke("PlayNextSong", BGMusicAudioSource.clip.length);
     }
+
+    public bool ToggleMusicSource()
+    {
+        ToggleMusic = !ToggleMusic;
+        BGMusicAudioSource.mute = ToggleMusic;
+        return ToggleMusic;
+    }
+
+    public bool ToggleSoundSource()
+    {
+        ToggleSound = !ToggleSound;
+        SoundEffectAudioSource.mute = ToggleSound;
+        return ToggleSound;
+    }
+         
 }

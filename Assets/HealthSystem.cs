@@ -23,7 +23,8 @@ namespace EscapeRoom
 
         public float GetHealthPercentage()
         {
-            return CurrentHealth / TotalHealth;
+
+            return 1 - (CurrentHealth / TotalHealth);
         }
         public void TakeDamage(float damage)
         {

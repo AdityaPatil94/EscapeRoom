@@ -15,6 +15,7 @@ namespace Photon.Pun.Demo.Asteroids
 
         [Header("Selection Panel")]
         public GameObject SelectionPanel;
+        public GameObject GameTitle;
 
         [Header("Create Room Panel")]
         public GameObject CreateRoomPanel;
@@ -40,7 +41,7 @@ namespace Photon.Pun.Demo.Asteroids
         private Dictionary<string, RoomInfo> cachedRoomList;
         private Dictionary<string, GameObject> roomListEntries;
         private Dictionary<int, GameObject> playerListEntries;
-
+        
         #region UNITY
 
         public void Awake()
@@ -60,6 +61,7 @@ namespace Photon.Pun.Demo.Asteroids
         public override void OnConnectedToMaster()
         {
             this.SetActivePanel(SelectionPanel.name);
+            GameTitle.SetActive(false);
         }
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
@@ -134,11 +136,11 @@ namespace Photon.Pun.Demo.Asteroids
 
             StartGameButton.gameObject.SetActive(CheckPlayersReady());
 
-            Hashtable props = new Hashtable
-            {
-                {AsteroidsGame.PLAYER_LOADED_LEVEL, false}
-            };
-            PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+            //Hashtable props = new Hashtable
+            //{
+            //    {AsteroidsGame.PLAYER_LOADED_LEVEL, false}
+            //};
+            //PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }
 
         public override void OnLeftRoom()
@@ -161,6 +163,7 @@ namespace Photon.Pun.Demo.Asteroids
             entry.transform.localScale = Vector3.one;
             entry.GetComponent<PlayerListEntry>().Initialize(newPlayer.ActorNumber, newPlayer.NickName);
 
+            //GameObject readyBtn = PhotonNetwork.Instantiate("PlayerReadyButton", Parent.transform.position,Quaternion.identity);
             playerListEntries.Add(newPlayer.ActorNumber, entry);
 
             StartGameButton.gameObject.SetActive(CheckPlayersReady());

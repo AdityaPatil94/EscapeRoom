@@ -10,10 +10,16 @@ public class HelloUnity3D : MonoBehaviour
     //public InputField mChannelNameInputField;
     //public Text mShownMessage;
     //public Text versionText;
+
     public Button joinChannel;
-    public Button leaveChannel;
+    //public Button leaveChannel;
     public Button muteButton;
     public string channelName = "EscapeRoom";
+    public bool CallToggle;
+    public bool MuteToggle;
+
+    public Sprite JoinCall, LeaveCall;
+    public Sprite Mute, Unmute;
     private IRtcEngine mRtcEngine = null;
 
     // PLEASE KEEP THIS App ID IN SAFE PLACE
@@ -43,9 +49,11 @@ public class HelloUnity3D : MonoBehaviour
 				Permission.RequestUserPermission(Permission.Microphone);
 			}
 #endif
-        joinChannel.onClick.AddListener(JoinChannel);
-        leaveChannel.onClick.AddListener(LeaveChannel);
-        muteButton.onClick.AddListener(MuteButtonTapped);
+        //joinChannel.onClick.AddListener(JoinChannel);
+        joinChannel.onClick.AddListener(ToggleCall);
+        //leaveChannel.onClick.AddListener(LeaveChannel);
+        //muteButton.onClick.AddListener(MuteButtonTapped);
+        muteButton.onClick.AddListener(ToggleMute);
 
         mRtcEngine = IRtcEngine.GetEngine(AppID);
         //versionText.GetComponent<Text>().text = "Version : " + getSdkVersion();
@@ -53,8 +61,9 @@ public class HelloUnity3D : MonoBehaviour
         mRtcEngine.OnJoinChannelSuccess += (string channelName, uint uid, int elapsed) =>
         {
             string joinSuccessMessage = string.Format("joinChannel callback uid: {0}, channel: {1}, version: {2}", uid, channelName, getSdkVersion());
-            leaveChannel.gameObject.SetActive(true);
-            joinChannel.gameObject.SetActive(false);
+            //leaveChannel.gameObject.SetActive(true);
+            //joinChannel.gameObject.SetActive(false);
+            joinChannel.GetComponent<Image>().sprite = LeaveCall;
             Debug.Log(joinSuccessMessage);
             //mShownMessage.GetComponent<Text>().text = (joinSuccessMessage);
             muteButton.enabled = true;
@@ -65,21 +74,23 @@ public class HelloUnity3D : MonoBehaviour
             string leaveChannelMessage = string.Format("onLeaveChannel callback duration {0}, tx: {1}, rx: {2}, tx kbps: {3}, rx kbps: {4}", stats.duration, stats.txBytes, stats.rxBytes, stats.txKBitRate, stats.rxKBitRate);
             Debug.Log(leaveChannelMessage);
             //mShownMessage.GetComponent<Text>().text = (leaveChannelMessage);
-            leaveChannel.gameObject.SetActive(false);
-            joinChannel.gameObject.SetActive(true);
+            //leaveChannel.gameObject.SetActive(false);
+            //joinChannel.gameObject.SetActive(true);
+            joinChannel.GetComponent<Image>().sprite = JoinCall;
             muteButton.enabled = false;
             // reset the mute button state
-            if (isMuted)
+            if (MuteToggle)
             {
-                MuteButtonTapped();
+                MuteButtonTapped(MuteToggle);
             }
         };
 
         mRtcEngine.OnUserJoined += (uint uid, int elapsed) =>
         {
             string userJoinedMessage = string.Format("onUserJoined callback uid {0} {1}", uid, elapsed);
-            leaveChannel.gameObject.SetActive(true);
-            joinChannel.gameObject.SetActive(false);
+            //leaveChannel.gameObject.SetActive(true);
+            joinChannel.GetComponent<Image>().sprite = LeaveCall;
+            //joinChannel.gameObject.SetActive(false);
             muteButton.enabled = true;
             Debug.LogWarning(userJoinedMessage);
         };
@@ -230,16 +241,39 @@ public class HelloUnity3D : MonoBehaviour
 
 
     bool isMuted = false;
-    void MuteButtonTapped()
+    void MuteButtonTapped(bool toggle)
     {
-        string labeltext = isMuted ? "Mute" : "Unmute";
-        Text label = muteButton.GetComponentInChildren<Text>();
-        if (label != null)
+        //string labeltext = isMuted ? "Mute" : "Unmute";
+        //Text label = muteButton.GetComponentInChildren<Text>();
+        //if (label != null)
+        //{
+        //    label.text = labeltext;
+        //}
+        //isMuted = !isMuted;
+        mRtcEngine.EnableLocalAudio(toggle);
+    }
+
+    public void ToggleCall()
+    {
+        CallToggle = !CallToggle;
+
+        if (CallToggle)
         {
-            label.text = labeltext;
+            JoinChannel();
         }
-        isMuted = !isMuted;
-        mRtcEngine.EnableLocalAudio(!isMuted);
+        else
+        {
+            LeaveChannel();
+        }
+
+
+    }
+
+    public void ToggleMute()
+    {
+        MuteToggle = !MuteToggle;
+        MuteButtonTapped(MuteToggle);
+        muteButton.GetComponent<Image>().sprite = MuteToggle ? Unmute : Mute;
     }
 }
 

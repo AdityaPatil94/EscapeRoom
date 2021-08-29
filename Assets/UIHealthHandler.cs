@@ -11,6 +11,7 @@ namespace EscapeRoom
     {
         [PunRPC]
         public Image healthBar;
+        public Image TempretureBar;
         public Image HurtEffect;
 
         public PhotonView pv;
@@ -39,16 +40,18 @@ namespace EscapeRoom
             GameOverPanel.SetActive(ActiveStat);
         }
 
-        [PunRPC]
-        public void RPC_RefreshHealthBar(float healthPercentage)
-        {
-            if (IsLocalHealthUI)
-                healthBar.fillAmount = healthPercentage;
-        }
+        //[PunRPC]
+        //public void RPC_RefreshHealthBar(float healthPercentage)
+        //{
+        //    if (IsLocalHealthUI)
+        //        healthBar.fillAmount = healthPercentage;
+        //}
 
         public void RefreshHealthBar(float healthPercentage)
         {
             healthBar.fillAmount = healthPercentage;
+            //Debug.Log(healthBar.fillAmoun);
+            TempretureBar.fillAmount = 1 - healthPercentage;
             //pv.RPC("RPC_RefreshHealthBar", RpcTarget.All,healthPercentage);
         }
 

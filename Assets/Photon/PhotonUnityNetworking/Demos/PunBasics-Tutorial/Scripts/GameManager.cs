@@ -134,7 +134,8 @@ namespace Photon.Pun.Demo.PunBasics
 		/// </summary>
 		public override void OnLeftRoom()
 		{
-			SceneManager.LoadScene("PunBasics-Launcher");
+			Debug.Log("OnLeftRoom");
+			SceneManager.LoadScene(0);
 		}
 
 		#endregion
