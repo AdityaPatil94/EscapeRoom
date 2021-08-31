@@ -10,7 +10,7 @@
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using System.Collections;
 using Photon.Realtime;
 
 namespace Photon.Pun.Demo.PunBasics
@@ -39,15 +39,16 @@ namespace Photon.Pun.Demo.PunBasics
         [Tooltip("The prefab to use for representing the player")]
         [SerializeField]
         private GameObject playerPrefab;
+		public CanvasGroup faderCanvasGroup;
+		public float fadeDuration = 1f;
+		#endregion
 
-        #endregion
+		#region MonoBehaviour CallBacks
 
-        #region MonoBehaviour CallBacks
-
-        /// <summary>
-        /// MonoBehaviour method called on GameObject by Unity during initialization phase.
-        /// </summary>
-        void Start()
+		/// <summary>
+		/// MonoBehaviour method called on GameObject by Unity during initialization phase.
+		/// </summary>
+		void Start()
 		{
 			Instance = this;
 
@@ -61,7 +62,7 @@ namespace Photon.Pun.Demo.PunBasics
 
 			if (playerPrefab == null) { // #Tip Never assume public properties of Components are filled up properly, always check and inform the developer of it.
 
-				Debug.LogError("<Color=Red><b>Missing</b></Color> playerPrefab Reference. Please set it up in GameObject 'Game Manager'", this);
+				//Debug.LogError("<Color=Red><b>Missing</b></Color> playerPrefab Reference. Please set it up in GameObject 'Game Manager'", this);
 			} else {
 
 
@@ -168,6 +169,39 @@ namespace Photon.Pun.Demo.PunBasics
 			PhotonNetwork.LoadLevel("PunBasics-Room for "+PhotonNetwork.CurrentRoom.PlayerCount);
 		}
 
+		public void NextRoom()
+        {
+			StartCoroutine("Fade",1);
+		}
+
+		private IEnumerator Fade(float finalAlpha)
+		{
+			// Set the fading flag to true so the FadeAndSwitchScenes coroutine won't be called again.
+			//isFading = true;
+
+			// Make sure the CanvasGroup blocks raycasts into the scene so no more input can be accepted.
+			faderCanvasGroup.blocksRaycasts = true;
+
+			// Calculate how fast the CanvasGroup should fade based on it's current alpha, it's final alpha and how long it has to change between the two.
+			float fadeSpeed = Mathf.Abs(faderCanvasGroup.alpha - finalAlpha) / fadeDuration;
+
+			// While the CanvasGroup hasn't reached the final alpha yet...
+			while (!Mathf.Approximately(faderCanvasGroup.alpha, finalAlpha))
+			{
+				// ... move the alpha towards it's target alpha.
+				faderCanvasGroup.alpha = Mathf.MoveTowards(faderCanvasGroup.alpha, finalAlpha,
+					fadeSpeed * Time.deltaTime);
+
+				// Wait for a frame then continue.
+				yield return null;
+			}
+
+			// Set the flag to false since the fade has finished.
+			//isFading = false;
+
+			// Stop the CanvasGroup from blocking raycasts so input is no longer ignored.
+			faderCanvasGroup.blocksRaycasts = false;
+		}
 		#endregion
 
 	}

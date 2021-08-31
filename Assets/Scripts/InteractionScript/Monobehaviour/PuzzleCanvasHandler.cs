@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 public class PuzzleCanvasHandler : MonoBehaviour
 {
     public GameObject PuzzlePanel;
-    public TextMeshProUGUI PuzzleText;
-
+    //public TextMeshProUGUI PuzzleText;
+    public Text PuzzleText;
 
     public void PuzzleReaction(PuzzleData data)
     {
