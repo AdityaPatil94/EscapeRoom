@@ -53,12 +53,29 @@ public class MasterManager : SingeltonScriptableObject<MasterManager>
             }
         }
 
-        for (int i = 0; i < Instance.networkedPrefabs.Count; i++)
-        {
-            UnityEngine.Debug.Log(Instance.networkedPrefabs[i].Prefab.name + ", " +Instance.networkedPrefabs[i].Path);
-        }
+        //for (int i = 0; i < Instance.networkedPrefabs.Count; i++)
+        //{
+        //    UnityEngine.Debug.Log(Instance.networkedPrefabs[i].Prefab.name + ", " +Instance.networkedPrefabs[i].Path);
+        //}
 
 #endif
+//        Instance.networkedPrefabs.Clear();
+
+//        GameObject[] Results = Resources.LoadAll<GameObject>("");
+//        for (int i = 0; i < results.Length; i++)
+//        {
+//            if (results[i].GetComponent<PhotonView>() != null)
+//            {
+//                string path = AssetDatabase.GetAssetPath(results[i]);
+//                Instance.networkedPrefabs.Add(new NetworkedPrefab(results[i], path));
+//            }
+//        }
+
+//        for (int i = 0; i < Instance.networkedPrefabs.Count; i++)
+//        {
+//            UnityEngine.Debug.Log(Instance.networkedPrefabs[i].Prefab.name + ", " + Instance.networkedPrefabs[i].Path);
+//        }
+
     }
 }
 

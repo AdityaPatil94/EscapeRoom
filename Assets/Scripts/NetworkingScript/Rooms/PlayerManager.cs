@@ -15,8 +15,10 @@ namespace EscapeRoom
         public bool IsLocalPlayerManager;
         private void Awake()
         {
-            Vector3 RandomPosition = new Vector3(Random.Range(-4,-1), 0, Random.Range(-1, 2));
+
             pv = GetComponent<PhotonView>();
+            Vector3 RandomPosition = new Vector3(Random.Range(-4,-1), 0, Random.Range(-1, 2));
+            
             PlayerController.Object = PlayerPrefab;
             PlayerController.Position =  Vector3.zero + RandomPosition;
             PlayerController.Rotation = Quaternion.identity;
@@ -36,7 +38,8 @@ namespace EscapeRoom
 
         private void CreateController()
         {
-            LocalPlayer = MasterManager.NetworkInstantiate(PlayerController);
+            //LocalPlayer = MasterManager.NetworkInstantiate(PlayerController);
+            LocalPlayer = PhotonNetwork.Instantiate(Path.Combine("Temp", "HumanPlayerCharacter"), PlayerController.Position, PlayerController.Rotation);
         }
 //public void PlayAnimation(int triggerHash)
         //{
