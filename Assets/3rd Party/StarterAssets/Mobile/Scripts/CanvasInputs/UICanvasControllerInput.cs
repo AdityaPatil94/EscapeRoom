@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using Photon.Pun;
 namespace StarterAssets
 {
     public class UICanvasControllerInput : MonoBehaviour
@@ -7,7 +7,14 @@ namespace StarterAssets
 
         [Header("Output")]
         public StarterAssetsInputs starterAssetsInputs;
-
+        public PhotonView pv;
+        private void Start()
+        {
+            if(!pv.IsMine)
+            {
+                Destroy(this.gameObject);
+            }
+        }
         public void VirtualMoveInput(Vector2 virtualMoveDirection)
         {
             starterAssetsInputs.MoveInput(virtualMoveDirection);
